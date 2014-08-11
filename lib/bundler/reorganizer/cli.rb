@@ -61,7 +61,7 @@ module Bundler
       def gem(*args)
         options = args.last.is_a?(Hash) ? args.last : {}
         group = current_group || options.delete(:group) || DEFAULT_GROUP
-        group = wrap_in_array(group).sort
+        group = Array(group).sort
         groups[group] ||= []
         groups[group] << args
       end
@@ -71,10 +71,6 @@ module Bundler
         yield
       ensure
         self.current_group = nil
-      end
-
-      def wrap_in_array(object)
-        object.is_a?(Array) ? object : [object]
       end
 
       def parse_gemfile
