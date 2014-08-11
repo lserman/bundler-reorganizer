@@ -25,12 +25,12 @@ module Bundler
         output_buffer = File.open(output_path, 'w')
         say "Writing reorganized Gemfile to: #{output_path}"
 
-        output_buffer << sources.map {|s| "source #{stringify_arg(*s)}"}.join("\n")
-        output_buffer << rubies.map {|s| "\nruby #{stringify_arg(*s)}"}.join("\n")
+        output_buffer << sources.map { |s| "source #{stringify_arg(*s)}" }.join("\n")
+        output_buffer << rubies.map  { |s| "\nruby #{stringify_arg(*s)}" }.join("\n")
 
         groups.each do |group, gems|
           output_buffer << "\n"
-          indent = group == DEFAULT_GROUP ? '' : '  '
+          indent = (group == DEFAULT_GROUP) ? '' : '  '
           output_buffer << "\ngroup #{stringify_args(*group)} do" unless group == DEFAULT_GROUP
           gems.sort_by!(&:first)
           gems.each do |gem_args|
@@ -41,9 +41,8 @@ module Bundler
         output_buffer << "\n"
       end
 
-      # pretty print arguments as ruby parsable string
       def stringify_args(*args)
-        args.map {|a| stringify_arg(a) }.join(', ')
+        args.map { |a| stringify_arg(a) }.join(', ')
       end
 
       def stringify_arg(arg)
@@ -82,6 +81,7 @@ module Bundler
         say "Parsing Gemfile: #{gemfile_path}"
         instance_eval File.read(gemfile_path)
       end
+
     end
   end
 end
