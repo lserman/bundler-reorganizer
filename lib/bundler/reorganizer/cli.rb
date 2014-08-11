@@ -34,7 +34,7 @@ module Bundler
           output_buffer << "\ngroup #{stringify_args(*group)} do" unless group == DEFAULT_GROUP
           gems.sort_by!(&:first)
           gems.each do |gem_args|
-            output_buffer << "\n#{indent}gem #{stringify_args(*gem_args.reject(&:empty?))}"
+            output_buffer << "\n#{indent}gem #{stringify_args(*gem_args.reject(&:empty?)).gsub('"', "'")}"
           end
           output_buffer << "\nend" unless group == DEFAULT_GROUP
         end
@@ -47,7 +47,12 @@ module Bundler
       end
 
       def stringify_arg(arg)
-        arg.inspect
+        case arg
+        when Hash
+          arg.map { |key, value| "#{key}: #{value.inspect}" }.join(', ')
+        else
+          arg.inspect
+        end
       end
 
       def source(*args)
