@@ -80,8 +80,7 @@ module Bundler
 
       def parse_gemfile
         say "Parsing Gemfile: #{gemfile_path}"
-        contents = File.read gemfile_path
-        instance_eval contents
+        instance_eval File.read(gemfile_path)
       end
     end
   end
