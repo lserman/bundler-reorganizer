@@ -6,8 +6,8 @@ module Bundler
       DEFAULT_GROUP = [:default]
       attr_accessor :sources, :rubies, :groups, :current_group
 
-      desc "reorganize Gemfile into groups of gems"
-      argument :gemfile_path, :banner=>"path/to/Gemfile"
+      desc 'reorganize Gemfile into groups of gems'
+      argument :gemfile_path, banner: 'path/to/Gemfile'
       class_option :output, desc: 'path to write output of reorganized Gemfile', aliases: '-o'
       def reorganize
         @sources = []
